@@ -4,10 +4,12 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+use App\Models\Survey;
+
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Surveys>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Questions>
  */
-class SurveysFactory extends Factory
+class QuestionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +19,10 @@ class SurveysFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'question' => fake()->realText(),
+            'type' => 1,
+            'survey_id' => Survey::factory(), #->create()->id,
+
         ];
     }
 }
