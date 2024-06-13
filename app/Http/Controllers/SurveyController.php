@@ -13,7 +13,11 @@ class SurveyController extends Controller
      */
     public function index()
     {
-        //
+        $query = Survey::query();
+        $projects = $query->paginate(10)->onEachPage(2);
+        return inertia("Survey/Survey", [
+            
+        ]);
     }
 
     /**
