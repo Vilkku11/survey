@@ -14,8 +14,12 @@ class SurveyController extends Controller
      */
     public function index()
     {
-        $query = Survey::query();
-        $surveys = $query->paginate(10)->onEachSide(1);
+        $surveys = Survey::query()
+            ->select('id', 'title', 'description', 'created_at', 'updated_at', 'user_id')
+            ->where('user_id', auth()->id())
+            ->paginate(10)
+            ->onEachSide(1);
+        #$surveys = $query->paginate(10)->onEachSide(1);
         return inertia("Survey/Survey", [
             "surveys" => SurveyResource::collection($surveys),
         ]);

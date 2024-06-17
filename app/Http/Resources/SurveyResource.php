@@ -25,7 +25,7 @@ class SurveyResource extends JsonResource
             ('d.m.Y'),
             'modified_at' => (new Carbon($this->modified_at))->format
             ('d.m.Y'),
-            'user_id' => $this->userId,
+            //'user_id' => $this->userId,
         ];
     }
 }

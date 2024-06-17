@@ -12,7 +12,7 @@ defineProps<{
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl">Surveyyss</h2>
+            <h2 class="font-semibold text-xl mb-4 text-white">Surveyys</h2>
 
             <div>
                 <ul>
