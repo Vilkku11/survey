@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, router } from "@inertiajs/vue3";
 
 defineProps<{
     surveys: Object;
 }>();
+function loadQuestions(surveyId: number) {
+    router.get(`/surveys/${surveyId}/questions`);
+}
 </script>
 
 <template>
@@ -18,6 +21,7 @@ defineProps<{
                 <ul>
                     <li v-for="survey in surveys.data" :key="survey.id">
                         <button
+                            @click="loadQuestions(survey.id)"
                             class="mt2 mb-2 border border-white hover:border-2"
                         >
                             <div class="text-white text-xl">

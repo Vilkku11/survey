@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
+use App\Http\Resources\QuestionResource;
 use App\Models\Question;
 use App\Models\Survey;
 
@@ -14,7 +15,15 @@ class QuestionController extends Controller
      */
     public function index(Survey $survey)
     {
-        //
+        if($survey->user_id != auth()->id()) {
+            return abort(403, 'Unauthorized');
+        }
+
+
+        $questions = $survey->questions()->get();
+        return inertia("Survey/Question", [
+            "questions" => QuestionResource::collection($questions),
+        ]);
     }
 
     /**

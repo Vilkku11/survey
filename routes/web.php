@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SurveyController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,12 @@ Route::middleware(['auth', 'verified'])->group(function() {
     })->name('dashboard');
     
     Route::resource('survey', SurveyController::class);
+
+
+    Route::prefix('surveys/{survey}')->group(function() {
+        Route::resource('questions', QuestionController::class);
+    });
+
 });
 
 #Route::get('/dashboard', function () {
