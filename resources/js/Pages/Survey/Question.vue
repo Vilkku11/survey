@@ -1,10 +1,17 @@
 <script setup lang="ts">
 import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
+import QuestionCard from "../../Components/QuestionCard.vue";
 
 defineProps<{
     questions: Object;
 }>();
+
+const updateQuestion = (questionId: number, newQuestion: string) => {
+    questions.data.find(
+        (question: any) => question.id === questionId
+    ).question = newQuestion;
+};
 </script>
 
 <template>
@@ -19,9 +26,12 @@ defineProps<{
                             v-for="question in questions.data"
                             :key="question.id"
                         >
-                            <input
-                                v-model="question.question"
-                                class="mb-2 w-full"
+                            <QuestionCard
+                                :question="question.question"
+                                @update:question="
+                                    (newQuestion) =>
+                                        updateQuestion(question.id, newQuestion)
+                                "
                             />
                         </li>
                     </ul>

@@ -14,7 +14,6 @@ class SurveyController extends Controller
      */
     public function index()
     {
-        
         $surveys = Survey::query()
             ->select('id', 'title', 'description', 'created_at', 'updated_at', 'user_id')
             ->where('user_id', auth()->id())
@@ -31,7 +30,7 @@ class SurveyController extends Controller
      */
     public function create()
     {
-        //
+        return inertia("Survey/Create");
     }
 
     /**

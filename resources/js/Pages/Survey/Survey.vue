@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
-import { Head, router } from "@inertiajs/vue3";
+import { Head, Link, router } from "@inertiajs/vue3";
 
 defineProps<{
     surveys: Object;
@@ -18,6 +18,14 @@ function loadQuestions(surveyId: number) {
             <h2 class="font-semibold text-xl mb-4 text-white">Surveyys</h2>
 
             <div>
+                <div class="w-full flex justify-end">
+                    <Link
+                        class="mb-2 px-2 py-1 bg-emerald-500 text-white rounded shadow transition-all hover:bg-emerald-600 font-bold"
+                        href="/survey/create"
+                        >New survey</Link
+                    >
+                </div>
+
                 <ul>
                     <li v-for="survey in surveys.data" :key="survey.id">
                         <button
