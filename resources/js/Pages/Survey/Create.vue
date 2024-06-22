@@ -1,6 +1,15 @@
 <script setup lang="ts">
+import InputLabel from "@/Components/InputLabel.vue";
 import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, useForm } from "@inertiajs/vue3";
+import TextInput from "@/Components/TextInput.vue";
+
+function onSubmit() {}
+
+useForm({
+    title: "",
+    description: "",
+});
 </script>
 
 <template>
@@ -9,6 +18,12 @@ import { Head } from "@inertiajs/vue3";
         <template #header>
             <div>
                 <h1 class="text-white">Create survey</h1>
+                <form :on-submit="onSubmit">
+                    <InputLabel value="Title" />
+                    <TextInput />
+                    <InputLabel value="Description" />
+                    <TextInput />
+                </form>
             </div>
         </template>
     </AuthenticatedLayout>
