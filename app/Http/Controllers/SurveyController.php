@@ -38,7 +38,10 @@ class SurveyController extends Controller
      */
     public function store(StoreSurveyRequest $request)
     {
-        //
+        $data = $request->validated();
+        $survey = Survey::create($data);
+
+        return to_route(route('survey.index'), $survey);
     }
 
     /**
