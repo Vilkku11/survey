@@ -58,7 +58,9 @@ class SurveyController extends Controller
      */
     public function edit(Survey $survey)
     {
-        //
+        return inertia("Survey/Edit", [
+            "survey" => new SurveyResource($survey),
+        ]);
     }
 
     /**
