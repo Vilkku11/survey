@@ -42,7 +42,7 @@ class SurveyController extends Controller
         $data['user_id'] = auth()->id();
         $survey = Survey::create($data);
 
-        return to_route('survey.index', $survey);
+        return to_route('surveys.index', $survey);
     }
 
     /**
@@ -50,7 +50,7 @@ class SurveyController extends Controller
      */
     public function show(Survey $survey)
     {
-        //
+        dd($survey);
     }
 
     /**

@@ -21,12 +21,12 @@ Route::middleware(['auth', 'verified'])->group(function() {
         return Inertia::render('Dashboard',);
     })->name('dashboard');
     
-    Route::resource('survey', SurveyController::class);
+    Route::resource('surveys', SurveyController::class);
 
 
-    Route::prefix('surveys/{survey}')->group(function() {
-        Route::resource('questions', QuestionController::class);
-    });
+   // Route::prefix('surveys/{survey}')->group(function() {
+   //     Route::resource('questions', QuestionController::class);
+   // });
 
 });
 

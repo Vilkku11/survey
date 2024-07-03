@@ -40,8 +40,8 @@ const showingNavigationDropdown = ref(false);
                                     Dashboard
                                 </NavLink>
                                 <NavLink
-                                    :href="route('survey.index')"
-                                    :active="route().current('survey.index')"
+                                    :href="route('surveys.index')"
+                                    :active="route().current('surveys.index')"
                                 >
                                     Surveys
                                 </NavLink>
@@ -153,8 +153,8 @@ const showingNavigationDropdown = ref(false);
                             Dashboard
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
-                            :href="route('survey.index')"
-                            :active="route().current('survey.index')"
+                            :href="route('surveys.index')"
+                            :active="route().current('surveys.index')"
                         >
                             Surveys
                         </ResponsiveNavLink>

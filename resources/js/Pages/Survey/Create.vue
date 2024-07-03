@@ -11,7 +11,7 @@ const form = useForm({
 });
 
 const onSubmit = () => {
-    form.post("/survey");
+    form.post("/surveys");
 };
 </script>
 

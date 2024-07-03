@@ -1,5 +1,5 @@
-<script lang="ts">
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+<script setup lang="ts">
+import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
 import { Head } from '@inertiajs/vue3';
 </script>
 
@@ -8,7 +8,9 @@ import { Head } from '@inertiajs/vue3';
     <Head title="Edit survey" />
     <AuthenticatedLayout>
         <template #header>
-            
+            <div>
+                <h1 class="text-black">Edit</h1>
+            </div>
         </template>
     </AuthenticatedLayout>
 </template>
