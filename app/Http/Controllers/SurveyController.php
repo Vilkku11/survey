@@ -50,6 +50,10 @@ class SurveyController extends Controller
      */
     public function show(Survey $survey)
     {
+        if (auth()->user()->cannot('view', $survey)) {
+            abort(403);
+        }
+
         return inertia("Survey/Survey", [
             "survey" => new SurveyResource($survey),
         ]);
@@ -70,6 +74,9 @@ class SurveyController extends Controller
      */
     public function update(UpdateSurveyRequest $request, Survey $survey)
     {
+        if ($request->user()->cannot('update', $survey)) {
+            abort(403);
+        }
         $validated = $request->validated();
 
         $survey->update($validated);
@@ -80,6 +87,8 @@ class SurveyController extends Controller
      */
     public function destroy(Survey $survey)
     {
-        //
+        if(auth()->user()-cannot('delete', $survey)) {
+            abort(403);
+        }
     }
 }
