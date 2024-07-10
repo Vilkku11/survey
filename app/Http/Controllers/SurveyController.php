@@ -20,7 +20,7 @@ class SurveyController extends Controller
             ->paginate(10)
             ->onEachSide(1);
         #$surveys = $query->paginate(10)->onEachSide(1);
-        return inertia("Survey/Survey", [
+        return inertia("Survey/SurveyList", [
             "surveys" => SurveyResource::collection($surveys),
         ]);
     }
@@ -50,7 +50,9 @@ class SurveyController extends Controller
      */
     public function show(Survey $survey)
     {
-        dd($survey);
+        return inertia("Survey/Survey", [
+            "survey" => new SurveyResource($survey),
+        ]);
     }
 
     /**
@@ -68,7 +70,9 @@ class SurveyController extends Controller
      */
     public function update(UpdateSurveyRequest $request, Survey $survey)
     {
-        //
+        $validated = $request->validated();
+
+        $survey->update($validated);
     }
 
     /**

@@ -1,60 +1,91 @@
 <script setup lang="ts">
-import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
-import { Head, Link, router } from "@inertiajs/vue3";
+import AuthenticatedLayout from '../../Layouts/AuthenticatedLayout.vue';
+import InputLabel from "@/Components/InputLabel.vue";
+import TextInput from "@/Components/TextInput.vue";
+import InputError from "@/Components/InputError.vue";
+import { Head, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
 
-type SurveyList = {
-    data: Array<{id: number, title: string,
-         description: string, created_at: string,
-          modified_at: string}>;
+
+
+
+type SurveyData = {
+    id: number,
+    title: string,
+    description: string,
+    created_at: string,
+    modified_at: string,
 }
 
+type Survey = {
+    data: SurveyData;
+}
 
-defineProps<{
-    surveys: SurveyList;
+const props = defineProps<{
+    survey:Survey,
 }>();
-function loadSurvey(surveyId: number) {
-    router.get(`/surveys/${surveyId}/edit`);
+
+const editMode = ref(false);
+
+const toggleEditMode = () => {
+    editMode.value = !editMode.value;
 }
+
+
+const form = useForm({
+    title: props.survey.data.title,
+    description: props.survey.data.description,
+})
+
+const onSubmit = () => {
+    console.log("submit");
+    form.put(`/surveys/${props.survey.data.id}`);
+}
+
 </script>
 
 <template>
-    <Head title="Surveys" />
-
+    <Head title="Survey" />
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl mb-4 text-white">Surveyys</h2>
 
-            <div>
+            <div class="">
+
                 <div class="w-full flex justify-end">
-                    <Link
-                        class="mb-2 px-2 py-1 bg-emerald-500 text-white rounded shadow transition-all hover:bg-emerald-600 font-bold"
-                        href="/surveys/create"
-                        >New survey</Link
-                    >
+                    <button
+                        :class="{
+                            'mb-2 px-2 py-1 text-white rounded shadow transition-all font-bold': true,
+                            'bg-emerald-500 hover:bg-emerald-600': !editMode,
+                            'bg-red-500 hover:bg-red-600': editMode
+                        }"
+                        @click="toggleEditMode"
+                        >{{ editMode ? 'Cancel' : 'Edit' }}</button>
                 </div>
 
-                <ul>
-                    <li v-for="survey in surveys.data" :key="survey.id">
-                        <button
-                            @click="loadSurvey(survey.id)"
-                            class="mt2 mb-2 border border-white hover:border-2"
-                        >
-                            <div class="text-white text-xl">
-                                {{ survey.title }}
-                            </div>
-                            <div>
-                                {{ survey.description }}
-                            </div>
-                            <div class="flex justify-end">
-                                <p class="mr-2">
-                                    last modified: {{ survey.modified_at }}
-                                </p>
-                            </div>
-                        </button>
-                    </li>
-                </ul>
+                <div v-if="editMode">
+                    <form @submit.prevent="onSubmit">
+                        <InputLabel value="title" />
+                        <TextInput type="text" v-model="form.title" />
+                        <InputLabel value="description" />
+                        <TextInput type="text" v-model="form.description" />
+                        <div class="mt-4 text-right">
+                            <button
+                                class="mb-2 px-2 py-1 bg-emerald-500 text-white rounded shadow transition-all hover:bg-emerald-600 font-bold"
+                            >
+                            Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div v-else>
+                    <h1 class="text-white">Survey</h1>
+                    <h1 class="">Title</h1>
+                    <h2>{{ survey.data.title }}</h2>
+                    <h1 class="">Description</h1>
+                    <h2>{{ survey.data.description }}</h2>
+                </div>
             </div>
-            <pre class="text-white">{{ JSON.stringify(surveys, null, 2) }}</pre>
+            <pre class="text-white">{{ JSON.stringify(survey, null, 2) }}</pre>
         </template>
     </AuthenticatedLayout>
 </template>

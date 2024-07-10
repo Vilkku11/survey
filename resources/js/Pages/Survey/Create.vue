@@ -29,7 +29,7 @@ const onSubmit = () => {
                     <InputError :message="form.errors.title" />
                     <InputError :message="form.errors.description" />
                     <div class="mt-4 text-right">
-                        <Link href="/survey" class="mr-2">Cancel</Link>
+                        <Link href="/surveys" class="mr-2">Cancel</Link>
                         <button
                             class="bg-emerald-500 text-white rounded shadow transition-all hover:bg-emerald-600 font-bold"
                         >
