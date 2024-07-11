@@ -1,20 +1,47 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
 import { Head, Link, router } from "@inertiajs/vue3";
+import ConfirmationDialog from "../../Components/ConfirmationDialog.vue";
 
 type SurveyList = {
-    data: Array<{id: number, title: string,
-         description: string, created_at: string,
-          modified_at: string}>;
-}
+    data: Array<{
+        id: number;
+        title: string;
+        description: string;
+        created_at: string;
+        modified_at: string;
+    }>;
+};
 
+const dialogVisibility = ref<boolean>(false);
+const selectedSurvey = ref<number | null>(null);
 
 defineProps<{
     surveys: SurveyList;
 }>();
-function loadSurvey(surveyId: number) {
+const loadSurvey = (surveyId: number) => {
     router.get(`/surveys/${surveyId}`);
-}
+};
+
+const deleteSurvey = () => {
+    router.delete(`/surveys/${selectedSurvey.value}`, {
+        onSuccess: () => {},
+        onError: (errors) => {
+            console.log(errors);
+        },
+    });
+    hideDialog();
+};
+
+const showDialog = (event: Event, surveyId: number) => {
+    event.stopPropagation();
+    selectedSurvey.value = surveyId;
+    dialogVisibility.value = true;
+};
+const hideDialog = () => {
+    dialogVisibility.value = false;
+};
 </script>
 
 <template>
@@ -47,14 +74,27 @@ function loadSurvey(surveyId: number) {
                             </div>
                             <div class="flex justify-end">
                                 <p class="mr-2">
-                                    last modified: {{ survey.modified_at }}
+                                    modified:
+                                    {{ survey.modified_at }}
                                 </p>
+                                <button
+                                    class="border border-white"
+                                    @click="showDialog($event, survey.id)"
+                                >
+                                    Delete
+                                </button>
                             </div>
                         </button>
                     </li>
                 </ul>
             </div>
             <pre class="text-white">{{ JSON.stringify(surveys, null, 2) }}</pre>
+            <ConfirmationDialog
+                :visible="dialogVisibility"
+                message="Are you sure you want to delete this survey?"
+                @cancel="hideDialog"
+                @confirm="deleteSurvey"
+            />
         </template>
     </AuthenticatedLayout>
 </template>

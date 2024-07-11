@@ -23,7 +23,7 @@ class SurveyResource extends JsonResource
             'description' => $this->description,
             'created_at' => (new Carbon($this->created_at))->format
             ('d.m.Y'),
-            'modified_at' => (new Carbon($this->modified_at))->format
+            'modified_at' => (new Carbon($this->updated_at))->format
             ('d.m.Y'),
             //'user_id' => $this->userId,
         ];

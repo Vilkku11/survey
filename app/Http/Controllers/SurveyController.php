@@ -80,6 +80,8 @@ class SurveyController extends Controller
         $validated = $request->validated();
 
         $survey->update($validated);
+
+        return to_route('surveys.index');
     }
 
     /**
@@ -87,8 +89,11 @@ class SurveyController extends Controller
      */
     public function destroy(Survey $survey)
     {
-        if(auth()->user()-cannot('delete', $survey)) {
+        if(auth()->user()->cannot('delete', $survey)) {
             abort(403);
         }
+        $survey->delete();
+
+        return to_route('surveys.index');
     }
 }
