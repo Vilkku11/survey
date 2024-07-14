@@ -2,7 +2,7 @@
 import InputLabel from "@/Components/InputLabel.vue";
 import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
 import InputError from "@/Components/InputError.vue";
-import { Head, useForm, Link } from "@inertiajs/vue3";
+import { Head, router, useForm } from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
 
 const form = useForm({
@@ -12,6 +12,10 @@ const form = useForm({
 
 const onSubmit = () => {
     form.post("/surveys");
+};
+
+const cancel = () => {
+    router.get("/surveys");
 };
 </script>
 
@@ -29,9 +33,15 @@ const onSubmit = () => {
                     <InputError :message="form.errors.title" />
                     <InputError :message="form.errors.description" />
                     <div class="mt-4 text-right">
-                        <Link href="/surveys" class="mr-2">Cancel</Link>
                         <button
-                            class="bg-emerald-500 text-white rounded shadow transition-all hover:bg-emerald-600 font-bold"
+                            type="button"
+                            @click="cancel"
+                            class="mb-2 px-2 py-1 bg-red-500 text-white rounded shadow transition-all hover:bg-red-600 font-bold"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            class="mb-2 px-2 py-1 bg-emerald-500 text-white rounded shadow transition-all hover:bg-emerald-600 font-bold"
                         >
                             Submit
                         </button>

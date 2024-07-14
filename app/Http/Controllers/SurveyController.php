@@ -42,6 +42,8 @@ class SurveyController extends Controller
         $data['user_id'] = auth()->id();
         $survey = Survey::create($data);
 
+
+        $request->session()->flash('success', 'Survey created successfully!');
         return to_route('surveys.index', $survey);
     }
 
@@ -95,5 +97,6 @@ class SurveyController extends Controller
         $survey->delete();
 
         return to_route('surveys.index');
+        
     }
 }

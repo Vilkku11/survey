@@ -3,6 +3,7 @@ import { ref } from "vue";
 import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
 import { Head, Link, router } from "@inertiajs/vue3";
 import ConfirmationDialog from "../../Components/ConfirmationDialog.vue";
+import AlertBox from "../../Components/AlertBox.vue";
 
 type SurveyList = {
     data: Array<{
@@ -50,7 +51,7 @@ const hideDialog = () => {
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl mb-4 text-white">Surveyys</h2>
-
+            <AlertBox :flash="$page.props.flash" />
             <div>
                 <div class="w-full flex justify-end">
                     <Link
@@ -88,6 +89,7 @@ const hideDialog = () => {
                     </li>
                 </ul>
             </div>
+            <pre class="text-white">{{ $page.props.flash }}</pre>
             <pre class="text-white">{{ JSON.stringify(surveys, null, 2) }}</pre>
             <ConfirmationDialog
                 :visible="dialogVisibility"
