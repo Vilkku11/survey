@@ -83,6 +83,7 @@ class SurveyController extends Controller
 
         $survey->update($validated);
 
+        $request->session()->flash('success', 'Survey updated successfully!');
         return to_route('surveys.index');
     }
 
