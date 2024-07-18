@@ -97,6 +97,7 @@ class SurveyController extends Controller
         }
         $survey->delete();
 
+        request()->session()->flash('success', 'Survey deleted successfully!');
         return to_route('surveys.index');
         
     }

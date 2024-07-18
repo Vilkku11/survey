@@ -5,6 +5,8 @@ import { Head, Link, router } from "@inertiajs/vue3";
 import ConfirmationDialog from "../../Components/ConfirmationDialog.vue";
 import AlertBox from "../../Components/AlertBox.vue";
 
+import { XMarkIcon } from "@heroicons/vue/16/solid";
+
 type SurveyList = {
     data: Array<{
         id: number;
@@ -65,7 +67,7 @@ const hideDialog = () => {
                     <li v-for="survey in surveys.data" :key="survey.id">
                         <button
                             @click="loadSurvey(survey.id)"
-                            class="mt2 mb-2 border border-white hover:border-2"
+                            class="mt2 mb-2 border border-white-700 hover:border-white"
                         >
                             <div class="text-white text-xl">
                                 {{ survey.title }}
@@ -79,10 +81,12 @@ const hideDialog = () => {
                                     {{ survey.modified_at }}
                                 </p>
                                 <button
-                                    class="border border-white"
+                                    class=""
                                     @click="showDialog($event, survey.id)"
                                 >
-                                    Delete
+                                    <XMarkIcon
+                                        class="size-5 text-red-500 transition-all hover:text-red-300"
+                                    />
                                 </button>
                             </div>
                         </button>

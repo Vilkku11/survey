@@ -36,12 +36,12 @@ const cancel = () => {
                         <button
                             type="button"
                             @click="cancel"
-                            class="mb-2 px-2 py-1 bg-red-500 text-white rounded shadow transition-all hover:bg-red-600 font-bold"
+                            class="mb-0 px-2 py-1 bg-red-500 text-white rounded shadow transition-all hover:bg-red-600 font-bold"
                         >
                             Cancel
                         </button>
                         <button
-                            class="mb-2 px-2 py-1 bg-emerald-500 text-white rounded shadow transition-all hover:bg-emerald-600 font-bold"
+                            class="mb-0 px-2 py-1 bg-emerald-500 text-white rounded shadow transition-all hover:bg-emerald-600 font-bold"
                         >
                             Submit
                         </button>

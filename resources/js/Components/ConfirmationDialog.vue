@@ -16,12 +16,26 @@ const cancel = () => {
 </script>
 
 <template>
-    <div class="fixed inset-0 flex items-center justify-center" v-if="visible">
-        <div class="bg-white p-6 rounded shadow-lg">
-            <p class="text-lg mb-4">{{ message }}</p>
-            <div class="flex justify-end">
-                <button @click="confirm" class="bg-red-500">Confirm</button>
-                <button @click="cancel" class="bg-black-500">Cancel</button>
+    <div
+        v-if="visible"
+        class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50"
+        @click.self="cancel"
+    >
+        <div class="bg-gray-800 border border-gray-700 p-6 rounded shadow-lg">
+            <p class="text-lg text-white mb-4">{{ message }}</p>
+            <div class="flex justify-end space-x-4">
+                <button
+                    @click="confirm"
+                    class="mb-2 px-2 py-1 bg-red-500 text-white"
+                >
+                    Confirm
+                </button>
+                <button
+                    @click="cancel"
+                    class="mb-2 px-2 py-1 bg-black-500 text-white"
+                >
+                    Cancel
+                </button>
             </div>
         </div>
     </div>
