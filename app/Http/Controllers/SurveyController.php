@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSurveyRequest;
 use App\Http\Requests\UpdateSurveyRequest;
 use App\Http\Resources\SurveyResource;
+use App\Http\Resources\QuestionResource;
 use App\Models\Survey;
 
 class SurveyController extends Controller
@@ -56,8 +57,11 @@ class SurveyController extends Controller
             abort(403);
         }
 
+        $questions = $survey->questions()->get();
+
         return inertia("Survey/Survey", [
             "survey" => new SurveyResource($survey),
+            "questions" => QuestionResource::collection($questions),
         ]);
     }
 

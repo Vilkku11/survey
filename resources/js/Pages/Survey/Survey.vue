@@ -4,6 +4,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
 import ConfirmationDialog from "../../Components/ConfirmationDialog.vue";
+import Question from "../../Components/Question.vue";
 import { Head, useForm, router } from "@inertiajs/vue3";
 import { ref } from "vue";
 
@@ -21,6 +22,7 @@ type Survey = {
 
 const props = defineProps<{
     survey: Survey;
+    questions: Object;
 }>();
 
 const dialogVisibility = ref<boolean>(false);
@@ -58,7 +60,7 @@ const form = useForm({
 
 const onSubmit = () => {
     console.log("submit");
-    form.put(`/surveys/${props.survey.data.id}`, {
+    form.patch(`/surveys/${props.survey.data.id}`, {
         onSuccess: () => {},
         onError: (errors) => {
             console.log(errors);
@@ -122,6 +124,18 @@ const onSubmit = () => {
                 @cancel="hideDialog"
                 @confirm="deleteSurvey"
             />
+            <ul>
+                <li v-for="question in questions.data" :key="question.id">
+                    <Question
+                        :question="question.question"
+                        :type="question.type"
+                        :editMode="editMode"
+                    />
+                </li>
+            </ul>
+            <pre class="text-white">{{
+                JSON.stringify(questions, null, 2)
+            }}</pre>
             <pre class="text-white">{{ JSON.stringify(survey, null, 2) }}</pre>
         </template>
     </AuthenticatedLayout>

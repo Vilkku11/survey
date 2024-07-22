@@ -21,9 +21,7 @@ class QuestionController extends Controller
 
 
         $questions = $survey->questions()->get();
-        return inertia("Survey/Question", [
-            "questions" => QuestionResource::collection($questions),
-        ]);
+        return QuestionResource::collection($questions);
     }
 
     /**
