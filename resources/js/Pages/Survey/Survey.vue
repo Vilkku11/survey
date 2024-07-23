@@ -5,8 +5,9 @@ import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
 import ConfirmationDialog from "../../Components/ConfirmationDialog.vue";
 import Question from "../../Components/Question.vue";
+import AlertBox from "@/Components/AlertBox.vue";
 import { Head, useForm, router } from "@inertiajs/vue3";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 type SurveyData = {
     id: number;
@@ -60,13 +61,24 @@ const form = useForm({
 
 const onSubmit = () => {
     console.log("submit");
-    form.patch(`/surveys/${props.survey.data.id}`, {
+    changedData.patch(`/surveys/${props.survey.data.id}`, {
         onSuccess: () => {},
         onError: (errors) => {
             console.log(errors);
         },
     });
 };
+const changedData: Record<string, unknown> = {};
+
+watch(form, (newForm) => {
+    console.log("hey i changed");
+    for (const key in newForm) {
+        if (newForm[key] != props.survey.data[key as keyof SurveyData]) {
+            changedData[key] = newForm[key];
+        }
+    }
+    console.log(changedData);
+});
 </script>
 
 <template>
@@ -74,6 +86,10 @@ const onSubmit = () => {
     <AuthenticatedLayout>
         <template #header>
             <div class="">
+                <AlertBox
+                    :flash="$page.props.flash"
+                    :errors="$page.props.errors.description"
+                />
                 <div class="w-full flex justify-end">
                     <button
                         :class="{

@@ -83,7 +83,9 @@ class SurveyController extends Controller
         if ($request->user()->cannot('update', $survey)) {
             abort(403);
         }
+
         $validated = $request->validated();
+
 
         $survey->update($validated);
 

@@ -53,7 +53,10 @@ const hideDialog = () => {
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl mb-4 text-white">Surveyys</h2>
-            <AlertBox :flash="$page.props.flash" />
+            <AlertBox
+                :flash="$page.props.flash"
+                :errors="$page.props.errors.description"
+            />
             <div>
                 <div class="w-full flex justify-end">
                     <Link
