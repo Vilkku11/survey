@@ -49,10 +49,13 @@ const hideDialog = () => {
 
 <template>
     <Head title="Surveys" />
-
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl mb-4 text-white">Surveyys</h2>
+        </template>
+        <div
+            class="flex flex-col justify-center mx-auto w-full max-w-full py-4 px-32"
+        >
             <AlertBox
                 :flash="$page.props.flash"
                 :errors="$page.props.errors.description"
@@ -96,14 +99,18 @@ const hideDialog = () => {
                     </li>
                 </ul>
             </div>
-            <pre class="text-white">{{ $page.props.flash }}</pre>
-            <pre class="text-white">{{ JSON.stringify(surveys, null, 2) }}</pre>
+            <pre class="text-white whitespace-pre-wrap">{{
+                $page.props.flash
+            }}</pre>
+            <pre class="text-white whitespace-pre-wrap">{{
+                JSON.stringify(surveys, null, 2)
+            }}</pre>
             <ConfirmationDialog
                 :visible="dialogVisibility"
                 message="Are you sure you want to delete this survey?"
                 @cancel="hideDialog"
                 @confirm="deleteSurvey"
             />
-        </template>
+        </div>
     </AuthenticatedLayout>
 </template>

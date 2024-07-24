@@ -63,7 +63,7 @@ const onSubmit = () => {
     console.log("submit");
     changedData.patch(`/surveys/${props.survey.data.id}`, {
         onSuccess: () => {},
-        onError: (errors) => {
+        onError: (errors: Object) => {
             console.log(errors);
         },
     });
@@ -84,7 +84,9 @@ watch(form, (newForm) => {
 <template>
     <Head title="Survey" />
     <AuthenticatedLayout>
-        <template #header>
+        <div
+            class="flex flex-col justify-center mx-auto w-full max-w-full py-4 px-32"
+        >
             <div class="">
                 <AlertBox
                     :flash="$page.props.flash"
@@ -149,10 +151,12 @@ watch(form, (newForm) => {
                     />
                 </li>
             </ul>
-            <pre class="text-white">{{
+            <pre class="text-white whitespace-pre-wrap">{{
                 JSON.stringify(questions, null, 2)
             }}</pre>
-            <pre class="text-white">{{ JSON.stringify(survey, null, 2) }}</pre>
-        </template>
+            <pre class="text-white whitespace-pre-wrap">{{
+                JSON.stringify(survey, null, 2)
+            }}</pre>
+        </div>
     </AuthenticatedLayout>
 </template>

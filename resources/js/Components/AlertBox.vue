@@ -20,7 +20,7 @@ const props = defineProps<{ flash: FlashProps; errors: Errors }>();
 
 watch(
     () => [props.flash, props.errors],
-    ([flash, errors]) => {
+    () => {
         isOpen.value = true;
     }
 );
@@ -39,9 +39,7 @@ watch(
             },
         ]"
     >
-        {{
-            props.flash.success || props.flash.error || props.errors.description
-        }}
+        {{ props.flash.success || props.flash.error || props.errors }}
         <button class="hover:bg-white hover:bg-opacity-40" @click="closeAlert">
             <XMarkIcon class="size-5 transition-all" />
         </button>
