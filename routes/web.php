@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -17,10 +18,10 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function() {
-    Route::get('/dashboard', function () {
+    /*Route::get('/dashboard', function () {
         return Inertia::render('Dashboard',);
-    })->name('dashboard');
-    
+    })->name('dashboard');*/
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('surveys', SurveyController::class);
 
 
